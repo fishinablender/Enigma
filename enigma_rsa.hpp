@@ -6,29 +6,29 @@
 #include <string>
 
 /**
- * \class rsa_key_public
+ * \class enigma_rsa_public
  * \brief Handles public key information.
  * 
  * \author J.T. Davies
  * 
  * This class acts as an abstraction layer between the main program and the underlying cryptography library.
  */
-class rsa_key_public: public ICryptosystem
+class enigma_rsa_public: public ICryptosystem
 {
 public:
    /// Default constructor.
-   rsa_key_public () {}
+   enigma_rsa_public () {}
    /// Copy constructor.
-   rsa_key_public (const rsa_key_public & other) : publicKey_(other.publicKey_) {}
+   enigma_rsa_public (const enigma_rsa_public & other) : publicKey_(other.publicKey_) {}
    /// Move constructor.
-   rsa_key_public (rsa_key_public && other) : publicKey_(std::move(other.publicKey_)) {}
+   enigma_rsa_public (enigma_rsa_public && other) : publicKey_(std::move(other.publicKey_)) {}
    
    /**
     * Constructs a [projectname] public key type from a Crypto++ public key.
     * 
     * \param key Public key provided by Crypto++.
     */
-   rsa_key_public (const RSA::PublicKey & key) : publicKey_(key) {}
+   enigma_rsa_public (const RSA::PublicKey & key) : publicKey_(key) {}
    
    virtual void encrypt (const std::string & infile, const std::string & outfile) const;
    virtual void decrypt (const std::string & infile, const std::string & infile) const
@@ -43,15 +43,15 @@ private:
    RSA::PublicKey publicKey_;
 };
 
-class rsa_key_private: public rsa_key_public
+class enigma_rsa_private: public enigma_rsa_public
 {
 public:
    /// Default constructor.
-   rsa_key_private () {}
+   enigma_rsa_private () {}
    /// Copy constructor.
-   rsa_key_private (const rsa_key_private & other) : rsa_key_public(other), privateKey_(other.privateKey_) {}
+   enigma_rsa_private (const enigma_rsa_private & other) : enigma_rsa_public(other), privateKey_(other.privateKey_) {}
    /// Move constructor.
-   rsa_key_private (rsa_key_private && other) : rsa_key_public(std::move(other)), privateKey_(std::move(other.privateKey_)) {}
+   enigma_rsa_private (enigma_rsa_private && other) : enigma_rsa_public(std::move(other)), privateKey_(std::move(other.privateKey_)) {}
    
    /**
     * Constructs a private key container from a Crypto++ key.
@@ -59,7 +59,7 @@ public:
     * \param public_key Public key provided by Crypto++.
     * \param private_key Private key provided by Crypto++.
     */
-   rsa_key_private (const RSA::PrivateKey & privateKey) : rsa_key_public(publicKey(private_key)), privateKey_(privateKey) {}
+   enigma_rsa_private (const RSA::PrivateKey & privateKey) : enigma_rsa_public(publicKey(private_key)), privateKey_(privateKey) {}
    
    
    // 
@@ -72,4 +72,4 @@ private:
    RSA::PrivateKey privateKey_;
 };
 
-#endif
+#endifz
