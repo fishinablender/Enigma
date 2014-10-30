@@ -41,12 +41,6 @@ void enigma_rsa_private::decrypt (const std::string & infile, const std::string 
          new FileSink(outfile.c_str())));
 }
 
-enigma_rsa_public enigma_rsa_private::getPublicKey () const
-{
-   RSAFunction publicKey(privateKey_);
-   return enigma_rsa_public(publicKey);
-}
-
 void enigma_rsa_private::save (const std::string & filename) const
 {
    ByteQueue queue;
@@ -65,7 +59,7 @@ void enigma_rsa_private::load (const std::string & filename)
    privateKey_.BERDecodePrivateKey(queue, false, queue.MaxRetrievable());
 }
 
-enigma_rsa_private generateNewPrivateKey ()
+enigma_rsa_private generateRSAPrivateKey ()
 { 
    // InvertibleRSAFunction is used because private key would not
    // be able to do anything by itself.

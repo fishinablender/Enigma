@@ -15,7 +15,7 @@ int handleArgs (int argc, const char * argv[])
          cout << "Not enough arguments: enigmacli generate <keyfile>";
          return 1;
       }
-      enigma_rsa_private key = generateNewPrivateKey();
+      enigma_rsa_private key = generateRSAPrivateKey();
       key.save(std::string(argv[2]));
    }
    else if ( command == "encrypt" )
@@ -53,7 +53,7 @@ int main (int argc, const char * argv[])
       cout << "enigmacli> ";
       cin >> command;
       
-      if ( command == "generate" ) { key = generateNewPrivateKey(); }
+      if ( command == "generate" ) { key = generateRSAPrivateKey(); }
       else if ( command == "save" )
       {
          cout << "Enter file name: ";
