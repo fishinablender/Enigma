@@ -14,7 +14,10 @@ class calc : public QWidget
 public:
     explicit calc(QWidget *parent = 0);
     ~calc();
-    encrypt();
+    //void encrypt();
+
+public slots:
+    //void encrypt();
 
 private:
     Ui::calc *ui;

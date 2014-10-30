@@ -9,16 +9,14 @@ calc::calc(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    ui->comboBox->addItem("RSA");
-    ui->comboBox->addItem("ECC");
-
     QString dirIn = ui->lineEdit->text();
-    QString dirOut = ui->lineEdit->text();
-    QString recipient;
-
+    QString dirOut = ui->lineEdit_2->text();
+    QString recipient = ui->lineEdit_3->text();
 
 
     //QVariant encryptType =  ui->comboBox->itemData(ui->comboBox->currentIndex());
+
+    ui->label->text() = "" +ui->comboBox->currentIndex();
 
     //ui->label->setText(encryptType.toString());
 
@@ -30,9 +28,9 @@ calc::calc(QWidget *parent) :
 
 }
 
-//public void encrypt(){
+void encrypt(){
 
-//}
+}
 
 
 calc::~calc()
