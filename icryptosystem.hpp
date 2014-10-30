@@ -1,12 +1,20 @@
 #ifndef ICRYPTOSYSTEM_HPP
 #define ICRYPTOSYSTEM_HPP
 
+#include <string>
+
 /**
  * Interface class for cryptographic objects (both public and private keys).
  */
 class ICryptosystem
 {
 public:
+   /// Deletes this object.
+   virtual void destroy () = 0;
+   
+   /// Returns a copy of this object owned by the caller.
+   virtual ICryptosystem * clone () const = 0;
+   
    /**
     * Encrypts a file using this cryptosystem object's public key.
     * 
