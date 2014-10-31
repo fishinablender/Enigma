@@ -64,13 +64,6 @@
             </property>
            </widget>
           </item>
-          <item>
-           <widget class="QLabel" name="label_4">
-            <property name="text">
-             <string>Encryption Type</string>
-            </property>
-           </widget>
-          </item>
          </layout>
         </item>
         <item>
@@ -144,23 +137,6 @@
             <property name="text">
              <string>User Name</string>
             </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QComboBox" name="comboBox">
-            <property name="currentText">
-             <string>RSA</string>
-            </property>
-            <item>
-             <property name="text">
-              <string>RSA</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>ECC</string>
-             </property>
-            </item>
            </widget>
           </item>
          </layout>
@@ -243,13 +219,6 @@
             </property>
            </widget>
           </item>
-          <item>
-           <widget class="QLabel" name="label_11">
-            <property name="text">
-             <string>Encryption Type</string>
-            </property>
-           </widget>
-          </item>
          </layout>
         </item>
         <item>
@@ -290,23 +259,6 @@
           </item>
           <item>
            <layout class="QHBoxLayout" name="horizontalLayout_3"/>
-          </item>
-          <item>
-           <widget class="QComboBox" name="comboBox_2">
-            <property name="currentText">
-             <string>RSA</string>
-            </property>
-            <item>
-             <property name="text">
-              <string>RSA</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>ECC</string>
-             </property>
-            </item>
-           </widget>
           </item>
          </layout>
         </item>
