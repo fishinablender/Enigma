@@ -2,9 +2,11 @@
 #define ENIGMA_ECIES_HPP
 
 #include "icryptosystem.hpp"
+#include <cryptopp/eccrypto.h>
 
-class ecies_public_key: public ICryptosystem
+class enigma_ecies_public: public ICryptosystem
 {
+public:
    /// Default constructor.
    enigma_ecies_public () {};
    /// Copy constructor.
@@ -20,7 +22,7 @@ class ecies_public_key: public ICryptosystem
    virtual void destroy () { delete this; }
    
    /// Returns a copy of this object owned by the caller.
-   virtual ecies_public_key * clone () const { return new ecies_public_key(*this); }
+   virtual enigma_ecies_public * clone () const { return new enigma_ecies_public(*this); }
    
    virtual void encrypt (const std::string & infile, const std::string & outfile) const;
    
@@ -32,10 +34,11 @@ class ecies_public_key: public ICryptosystem
    virtual void save (const std::string & filename) const;
    virtual void load (const std::string & filename);
 protected:
-   CryptoPP::ECIES<ECP>::Encryptor publicKey_;
+   enigma_ecies_public (CryptoPP::ECIES<CryptoPP::ECP>::Decryptor key) : publicKey_(key) {}
+   CryptoPP::ECIES<CryptoPP::ECP>::Encryptor publicKey_;
 };
 
-class ecies_private_key: public ecies_public_key
+class enigma_ecies_private: public enigma_ecies_public
 {
 public:
    /// Default constructor.
@@ -58,16 +61,12 @@ public:
       privateKey_ = std::move(other.privateKey_);
       return *this;
    }
-   /// Key assignment.
-   const enigma_ecies_private & operator= (const CryptoPP::ECIES<ECP>::Decryptor & key) { privateKey_ = key; }
-   /// Key move assignment.
-   const enigma_ecies_private & operator= (CryptoPP::ECIES<ECP>::Decryptor && key) { privateKey_ = std::move(key); }
    
    /// Deletes this object.
    virtual void destroy () { delete this; }
    
    /// Returns a copy of this object owned by the caller.
-   virtual ecies_private_key * clone () const { return new ecies_private_key(*this); }
+   virtual enigma_ecies_private * clone () const { return new enigma_ecies_private(*this); }
    
    virtual void decrypt (const std::string & infile, const std::string & outfile) const;
    virtual void save (const std::string & filename) const;
@@ -75,10 +74,10 @@ public:
    
    virtual bool has_private () const noexcept { return true; }
 private:
-   CryptoPP::ECIES<ECP>::Decryptor privateKey_;
+   CryptoPP::ECIES<CryptoPP::ECP>::Decryptor privateKey_;
 };
 
 /// Generates and returns a private key owned by the caller.
-ecies_private_key * newECIESPrivateKey ();
+enigma_ecies_private * newECIESPrivateKey ();
 
 #endif

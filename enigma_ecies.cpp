@@ -1,15 +1,22 @@
 #include "enigma_ecies.hpp"
 
-AutoSeededRandomPool prng;
+#include <cryptopp/files.h>
+#include <cryptopp/osrng.h>
+#include <cryptopp/asn.h>
+#include <cryptopp/oids.h>
 
-void ecies_public_key::encrypt (const std::string & infile, const std::string & outfile) const;
+using namespace CryptoPP;
+
+AutoSeededRandomPool rng;
+
+void enigma_ecies_public::encrypt (const std::string & infile, const std::string & outfile) const
 {
-   FileSource(infile.c_str(),
-      new PK_EncryptorFilter(rng, privateKey_,
+   FileSource(infile.c_str(), true,
+      new PK_EncryptorFilter(rng, publicKey_,
          new FileSink(outfile.c_str())));
 }
 
-void ecies_public_key::save (const std::string & filename) const;
+void enigma_ecies_public::save (const std::string & filename) const
 {
    // Create sink object to stream data into
    FileSink sink (filename.c_str());
@@ -17,24 +24,24 @@ void ecies_public_key::save (const std::string & filename) const;
    publicKey_.GetPublicKey().Save(sink);
 }
 
-void ecies_public_key::load (const std::string & filename)
+void enigma_ecies_public::load (const std::string & filename)
 {
-   FileSource source (filename.c_str());
-   publicKey_.AccessPublic().Load(source);
+   FileSource source (filename.c_str(), true);
+   publicKey_.AccessPublicKey().Load(source);
 }
 
-void ecies_private_key::ecies_private_key () : 
-   privateKey_(prng, CryptoPP::ASN1::secp256r1()),
-   publicKey_(privateKey_.GetPrivateKey()) {}
+enigma_ecies_private::enigma_ecies_private () : 
+   privateKey_(rng, ASN1::secp256r1()),
+   enigma_ecies_public(privateKey_) {}
 
-void ecies_private_key::decrypt (const std::string & infile, const std::string & outfile) const
+void enigma_ecies_private::decrypt (const std::string & infile, const std::string & outfile) const
 {
-   FileSource(infile.c_str(),
+   FileSource(infile.c_str(), true,
       new PK_DecryptorFilter(rng, privateKey_,
          new FileSink(outfile.c_str())));
 }
 
-void ecies_private_key::save (const std::string & filename) const
+void enigma_ecies_private::save (const std::string & filename) const
 {
    // Create sink object to stream data into
    FileSink sink (filename.c_str());
@@ -42,8 +49,8 @@ void ecies_private_key::save (const std::string & filename) const
    privateKey_.GetPrivateKey().Save(sink);
 }
 
-void ecies_private_key::load (const std::string & filename)
+void enigma_ecies_private::load (const std::string & filename)
 {
-   FileSource source (filename.c_str());
+   FileSource source (filename.c_str(),true);
    privateKey_.AccessPrivateKey().Load(source);
 }
