@@ -17,7 +17,8 @@ public:
     //void encrypt();
 
 public slots:
-    //void encrypt();
+    void encrypt();
+    void decrypt();
 
 private:
     Ui::calc *ui;

@@ -13,25 +13,24 @@ calc::calc(QWidget *parent) :
     QString dirOut = ui->lineEdit_2->text();
     QString recipient = ui->lineEdit_3->text();
 
-
-    //QVariant encryptType =  ui->comboBox->itemData(ui->comboBox->currentIndex());
-
-    ui->label->text() = "" +ui->comboBox->currentIndex();
-
-    //ui->label->setText(encryptType.toString());
-
-
-    //ui->label->setText(dirIn);
+    connect(ui->pushButton, SIGNAL(clicked()), this, SLOT(encrypt()));
+    connect(ui->pushButton_2, SIGNAL(clicked()), this, SLOT(decrypt()));
 
 
 
 
 }
 
-void encrypt(){
+void calc::encrypt(){
+
+
 
 }
 
+void calc::decrypt(){
+
+
+}
 
 calc::~calc()
 {
