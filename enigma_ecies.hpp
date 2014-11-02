@@ -6,7 +6,7 @@
 class ecies_public_key: public ICryptosystem
 {
    /// Default constructor.
-   enigma_ecies_public () {}
+   enigma_ecies_public () {};
    /// Copy constructor.
    enigma_ecies_public (const enigma_ecies_public & other) : publicKey_(other.publicKey_) {}
    /// Move constructor.
@@ -31,7 +31,7 @@ class ecies_public_key: public ICryptosystem
    
    virtual void save (const std::string & filename) const;
    virtual void load (const std::string & filename);
-private:
+protected:
    CryptoPP::ECIES<ECP>::Encryptor publicKey_;
 };
 
@@ -39,13 +39,11 @@ class ecies_private_key: public ecies_public_key
 {
 public:
    /// Default constructor.
-   enigma_ecies_private () {}
+   enigma_ecies_private ();
    /// Copy constructor.
    enigma_ecies_private (const enigma_ecies_private & other) : enigma_ecies_public(other), privateKey_(other.privateKey_) {}
    /// Move constructor.
    enigma_ecies_private (enigma_ecies_private && other) : enigma_ecies_public(std::move(other)), privateKey_(std::move(other.privateKey_)) {}
-   /// Key constructor.
-   /// Key move constructor.
    /// Copy assignment.
    const enigma_ecies_private & operator= (const enigma_ecies_private & other)
    {

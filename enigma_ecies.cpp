@@ -1,5 +1,7 @@
 #include "enigma_ecies.hpp"
 
+AutoSeededRandomPool prng;
+
 void ecies_public_key::encrypt (const std::string & infile, const std::string & outfile) const;
 {
    FileSource(infile.c_str(),
@@ -20,6 +22,10 @@ void ecies_public_key::load (const std::string & filename)
    FileSource source (filename.c_str());
    publicKey_.AccessPublic().Load(source);
 }
+
+void ecies_private_key::ecies_private_key () : 
+   privateKey_(prng, CryptoPP::ASN1::secp256r1()),
+   publicKey_(privateKey_.GetPrivateKey()) {}
 
 void ecies_private_key::decrypt (const std::string & infile, const std::string & outfile) const
 {
