@@ -12,6 +12,12 @@ int main ()
    cout << "Encryption test!" << endl;
    cout << "Filler!" << endl;
    testKey->encrypt("testIn","testEnc");
+   cout << "Save/load test!" << endl;
+   testKey->save("testKey");
+   testKey->destroy();
+   
+   testKey = newECIESPrivateKey();
+   testKey->load("testKey");
    cout << "Decryption test!" << endl;
    testKey->decrypt("testEnc","testOut");
    cout << "Destruction test!" << endl;
