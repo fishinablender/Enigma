@@ -5,6 +5,9 @@
 #include <cryptopp/asn.h>
 #include <cryptopp/oids.h>
 
+#include <iostream>
+using namespace std;
+
 using namespace CryptoPP;
 
 AutoSeededRandomPool rng;
@@ -31,8 +34,10 @@ void enigma_ecies_public::load (const std::string & filename)
 }
 
 enigma_ecies_private::enigma_ecies_private () : 
-   privateKey_(rng, ASN1::secp256r1()),
-   enigma_ecies_public(privateKey_) {}
+   privateKey_(rng, ASN1::secp256r1())
+{
+   publicKey_ = privateKey_;
+}
 
 void enigma_ecies_private::decrypt (const std::string & infile, const std::string & outfile) const
 {
@@ -53,4 +58,10 @@ void enigma_ecies_private::load (const std::string & filename)
 {
    FileSource source (filename.c_str(),true);
    privateKey_.AccessPrivateKey().Load(source);
+}
+
+ICryptosystem * newECIESPrivateKey ()
+{
+   enigma_ecies_private * output = new enigma_ecies_private();
+   return new enigma_ecies_private();
 }

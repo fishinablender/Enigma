@@ -78,6 +78,6 @@ private:
 };
 
 /// Generates and returns a private key owned by the caller.
-enigma_ecies_private * newECIESPrivateKey ();
+ICryptosystem * newECIESPrivateKey ();
 
 #endif
